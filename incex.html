@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Browser Arcade 2</title>
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background: #0b0d16;
+    color: white;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    height: 75px;
+    background: #111421;
+    border-bottom: 1px solid #252a40;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 35px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+    color: #9b82ff;
+}
+
+.logo span {
+    color: white;
+}
+
+.search {
+    width: 40%;
+    max-width: 500px;
+    padding: 13px 18px;
+    border: 1px solid #343953;
+    background: #1a1e30;
+    border-radius: 10px;
+    color: white;
+    outline: none;
+}
+
+.search:focus {
+    border-color: #9878ff;
+}
+
+.profile {
+    background: #252a40;
+    padding: 11px 18px;
+    border-radius: 8px;
+    color: #c4b6ff;
+}
+
+.layout {
+    display: flex;
+}
+
+.sidebar {
+    width: 220px;
+    min-height: calc(100vh - 75px);
+    background: #111421;
+    padding: 25px 15px;
+    border-right: 1px solid #252a40;
+    flex-shrink: 0;
+}
+
+.sidebar h3 {
+    color: #777f9e;
+    font-size: 12px;
+    margin: 15px 12px;
+    text-transform: uppercase;
+}
+
+.sidebar button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 13px;
+    margin-bottom: 5px;
+    background: transparent;
+    border: none;
+    color: #b5bad0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.sidebar button:hover,
+.sidebar button.active {
+    background: #272341;
+    color: #b8a5ff;
+}
+
+main {
+    padding: 35px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.hero {
+    background: linear-gradient(120deg, #32236b, #172e57, #111421);
+    border: 1px solid #494078;
+    border-radius: 16px;
+    padding: 45px;
+    margin-bottom: 35px;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 12px;
+}
+
+.hero p {
+    color: #c5c3e2;
+    margin-bottom: 20px;
+}
+
+.hero button {
+    padding: 12px 22px;
+    border: none;
+    border-radius: 8px;
+    background: #9878ff;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.section-title {
+    margin-bottom: 20px;
+    font-size: 22px;
+}
+
+.games {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+    gap: 20px;
+}
+
+.game-card {
+    background: #151a2a;
+    border: 1px solid #252c43;
+    border-radius: 12px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.game-card:hover {
+    transform: translateY(-5px);
+    border-color: #9878ff;
+    box-shadow: 0 8px 25px #0005;
+}
+
+.game-image {
+    height: 125px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 55px;
+    background: linear-gradient(135deg, #29234e, #182c43);
+}
+
+.game-info {
+    padding: 14px;
+}
+
+.game-info h3 {
+    font-size: 15px;
+    margin-bottom: 7px;
+}
+
+.game-info p {
+    color: #858da9;
+    font-size: 12px;
+}
+
+.empty {
+    color: #9299b3;
+    padding: 25px 0;
+    display: none;
+}
+
+.modal {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: #000c;
+    z-index: 20;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-content {
+    background: #151a2a;
+    border: 1px solid #4b437c;
+    border-radius: 14px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+}
+
+.modal-content h2 {
+    margin-bottom: 15px;
+}
+
+.modal-content p {
+    color: #aeb4ca;
+    line-height: 1.6;
+}
+
+.close {
+    margin-top: 22px;
+    background: #9878ff;
+    color: white;
+    border: none;
+    padding: 11px 25px;
+    border-radius: 7px;
+    cursor: pointer;
+}
+
+@media (max-width: 700px) {
+    header {
+        padding: 12px;
+        height: auto;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .search {
+        width: 100%;
+        max-width: none;
+        order: 3;
+    }
+
+    .sidebar {
+        width: 65px;
+        padding: 15px 5px;
+    }
+
+    .sidebar h3 {
+        display: none;
+    }
+
+    .sidebar button {
+        font-size: 0;
+        text-align: center;
+        padding: 13px 3px;
+    }
+
+    main {
+        padding: 18px;
+    }
+
+    .hero {
+        padding: 25px;
+    }
+
+    .hero h1 {
+        font-size: 27px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <div class="logo">BROWSER <span>ARCADE 2</span></div>
+
+    <input
+        class="search"
+        id="search"
+        type="text"
+        placeholder="Search games..."
+        oninput="filterGames()"
+    >
+
+    <div class="profile">Guest</div>
+</header>
+
+<div class="layout">
+
+<aside class="sidebar">
+    <h3>Menu</h3>
+
+    <button class="active" onclick="selectCategory('All', this)">🏠 Home</button>
+    <button onclick="selectCategory('Action', this)">⚔️ Action</button>
+    <button onclick="selectCategory('Racing', this)">🏎️ Racing</button>
+    <button onclick="selectCategory('Puzzle', this)">🧩 Puzzle</button>
+    <button onclick="selectCategory('Sports', this)">⚽ Sports</button>
+    <button onclick="selectCategory('Adventure', this)">🌎 Adventure</button>
+    <button onclick="selectCategory('Idle', this)">💰 Idle</button>
+
+    <h3>Library</h3>
+    <button onclick="selectCategory('Favorites', this)">⭐ Favorites</button>
+</aside>
+
+<main>
+
+<section class="hero">
+    <h1>Your next game starts here.</h1>
+    <p>Discover games, explore new worlds, and play whenever you want.</p>
+    <button onclick="document.getElementById('games-section').scrollIntoView({behavior:'smooth'})">
+        Explore Games →
+    </button>
+</section>
+
+<h2 class="section-title" id="section-heading">Explore Games</h2>
+
+<div class="games" id="games-section">
+
+    <div class="game-card" data-name="2048" data-category="Puzzle" onclick="openGame('2048')">
+        <div class="game-image">🔢</div>
+        <div class="game-info">
+            <h3>2048</h3>
+            <p>Puzzle</p>
+        </div>
+    </div>
+
+    <div class="game-card" data-name="Geometry Dash" data-category="Action" onclick="openGame('Geometry Dash')">
+        <div class="game-image">🟪</div>
+        <div class="game-info">
+            <h3>Geometry Dash</h3>
+            <p>Action</p>
+        </div>
+    </div>
+
+    <div class="game-card" data-name="Racing" data-category="Racing" onclick="openGame('Racing')">
+        <div class="game-image">🏎️</div>
+        <div class="game-info">
+            <h3>Racing</h3>
+            <p>Racing</p>
+        </div>
+    </div>
+
+    <div class="game-card" data-name="Adventure" data-category="Adventure" onclick="openGame('Adventure')">
+        <div class="game-image">🌎</div>
+        <div class="game-info">
+            <h3>Adventure</h3>
+            <p>Adventure</p>
+        </div>
+    </div>
+
+    <div class="game-card" data-name="Basketball" data-category="Sports" onclick="openGame('Basketball')">
+        <div class="game-image">🏀</div>
+        <div class="game-info">
+            <h3>Basketball</h3>
+            <p>Sports</p>
+        </div>
+    </div>
+
+    <div class="game-card" data-name="Cookie Clicker" data-category="Idle" onclick="openGame('Cookie Clicker')">
+        <div class="game-image">🍪</div>
+        <div class="game-info">
+            <h3>Cookie Clicker</h3>
+            <p>Idle</p>
+        </div>
+    </div>
+
+</div>
+
+<p class="empty" id="empty">No games found.</p>
+
+</main>
+</div>
+
+<div class="modal" id="game-modal">
+    <div class="modal-content">
+        <h2 id="game-title">Game</h2>
+        <p>This game is listed in the library, but its playable files haven't been connected yet.</p>
+        <p>We'll add the actual games in our next development stages.</p>
+        <button class="close" onclick="closeGame()">Close</button>
+    </div>
+</div>
+
+<script>
+let currentCategory = "All";
+
+function filterGames() {
+    const search = document.getElementById("search").value.toLowerCase();
+    const cards = document.querySelectorAll(".game-card");
+    let visible = 0;
+
+    cards.forEach(card => {
+        const name = card.dataset.name.toLowerCase();
+        const category = card.dataset.category;
+
+        const matchesSearch = name.includes(search);
+        const matchesCategory =
+            currentCategory === "All" ||
+            category === currentCategory;
+
+        const show = matchesSearch && matchesCategory;
+
+        card.style.display = show ? "block" : "none";
+
+        if (show) visible++;
+    });
+
+    document.getElementById("empty").style.display =
+        visible === 0 ? "block" : "none";
+}
+
+function selectCategory(category, button) {
+    currentCategory = category;
+
+    document.querySelectorAll(".sidebar button").forEach(btn => {
+        btn.classList.remove("active");
+    });
+
+    button.classList.add("active");
+
+    document.getElementById("section-heading").textContent =
+        category === "All" ? "Explore Games" : category + " Games";
+
+    filterGames();
+}
+
+function openGame(name) {
+    document.getElementById("game-title").textContent = name;
+    document.getElementById("game-modal").style.display = "flex";
+}
+
+function closeGame() {
+    document.getElementById("game-modal").style.display = "none";
+}
+</script>
+
+</body>
+</html>
