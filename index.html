@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Browser Arcade 2</title>
+
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+<header class="topbar">
+
+    <div class="logo">
+        BROWSER<span>ARCADE</span>
+    </div>
+
+    <nav>
+        <a href="index.html" class="selected">Home</a>
+        <a href="games.html">Games</a>
+        <a href="browser.html">Browser</a>
+    </nav>
+
+    <input
+        type="search"
+        id="search"
+        placeholder="Search games..."
+    >
+
+</header>
+
+<main>
+
+    <section class="hero">
+
+        <div>
+            <p class="eyebrow">WELCOME TO YOUR ARCADE</p>
+
+            <h1>PLAY WITHOUT<br>LIMITS.</h1>
+
+            <p class="hero-description">
+                Discover games. Explore new worlds.
+                Your next adventure starts here.
+            </p>
+
+            <button onclick="document.getElementById('popular').scrollIntoView({behavior:'smooth'})">
+                EXPLORE GAMES →
+            </button>
+        </div>
+
+    </section>
+
+    <section class="game-section" id="popular">
+
+        <div class="section-heading">
+            <h2>🔥 Popular Games</h2>
+            <span>EXPLORE</span>
+        </div>
+
+        <div class="game-row" id="popular-games"></div>
+
+    </section>
+
+    <section class="game-section">
+
+        <div class="section-heading">
+            <h2>⚔️ Action Games</h2>
+        </div>
+
+        <div class="game-row" id="action-games"></div>
+
+    </section>
+
+    <section class="game-section">
+
+        <div class="section-heading">
+            <h2>🧩 Puzzle Games</h2>
+        </div>
+
+        <div class="game-row" id="puzzle-games"></div>
+
+    </section>
+
+    <section class="game-section">
+
+        <div class="section-heading">
+            <h2>⭐ Your Favorites</h2>
+        </div>
+
+        <div class="game-row" id="favorite-games"></div>
+
+    </section>
+
+    <section class="game-section">
+
+        <div class="section-heading">
+            <h2>🕘 Recently Played</h2>
+        </div>
+
+        <div class="game-row" id="recent-games"></div>
+
+    </section>
+
+</main>
+
+<div class="player-modal" id="player-modal">
+
+    <div class="player-container">
+
+        <div class="player-toolbar">
+
+            <h2 id="player-title">Game</h2>
+
+            <div class="player-controls">
+                <button id="fullscreen-button">⛶ Fullscreen</button>
+                <button id="close-player">✕ Close</button>
+            </div>
+
+        </div>
+
+        <div class="player-screen" id="player-screen">
+
+            <div class="player-message">
+                <h1>🎮</h1>
+                <h2>GAME COMING SOON</h2>
+                <p>We're connecting the game library.</p>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Browser Arcade 2</p>
+    <p>BUILT FOR GAMERS.</p>
+</footer>
+
+<script src="js/app.js"></script>
+
+</body>
+</html>
